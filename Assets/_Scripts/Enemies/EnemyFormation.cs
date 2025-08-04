@@ -15,6 +15,7 @@ public class EnemyFormation : MonoBehaviour
     [Header("Horizontal Movement")]
     [SerializeField] private float xLimit = 4;
     [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float accelerationPerKilledEnemy = 0.05f;
 
     [Header("Vertical Movement")]
     [SerializeField] private float dropDistance = 0.5f;
@@ -32,6 +33,7 @@ public class EnemyFormation : MonoBehaviour
     private void Update()
     {
         MoveFormation();
+        moveSpeed = 1f + (enemies.Count - ActiveEnemyCount()) * accelerationPerKilledEnemy;
     }
 
     private void SpawnFormation()
@@ -67,5 +69,15 @@ public class EnemyFormation : MonoBehaviour
                 break;
             }
         }
+    }
+    private int ActiveEnemyCount()
+    {
+        int count = 0;
+        foreach (var enemy in enemies)
+        {
+            if (enemy != null)
+                count++;
+        }
+        return count;
     }
 }

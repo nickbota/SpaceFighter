@@ -2,8 +2,14 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    [Header("Movement Parameters")]
     [SerializeField] private float speed = 10f;
     [SerializeField] private float lifetime = 5f;
+
+    [Header("Damage Parameters")]
+    [SerializeField] private LayerMask damageLayer;
+    [SerializeField] private int damage = 1;
+
     private ObjectPool pool;
     private float timer;
 
@@ -24,6 +30,17 @@ public class Bullet : MonoBehaviour
         if (timer >= lifetime)
         {
             pool?.ReturnToPool(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (LayerCheck.IsInLayer(damageLayer, collision.gameObject))
+        {
+            if (collision.gameObject.TryGetComponent(out Health health))
+                health.ChangeHealth(-damage);
+
+            gameObject.SetActive(false);
         }
     }
 }

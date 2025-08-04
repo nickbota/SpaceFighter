@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 3935937817420105098}
   - component: {fileID: 2445506100785744933}
   - component: {fileID: 4410750665910196478}
+  - component: {fileID: 6971445463468208626}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -388,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 2
-  boundsX: 4
+  boundsX: 4.5
 --- !u!114 &4410750665910196478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,3 +405,34 @@ MonoBehaviour:
   bulletPool: {fileID: 0}
   firePoint: {fileID: 3373383917832150905}
   shootCooldown: 0.5
+--- !u!114 &6971445463468208626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252074021124588744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35ceb2f8344dc204ab5d674cce6a165f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialHealth: 3
+  OnHurt:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6252074021124588744}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
