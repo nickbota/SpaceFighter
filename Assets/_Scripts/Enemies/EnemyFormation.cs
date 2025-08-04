@@ -21,6 +21,11 @@ public class EnemyFormation : MonoBehaviour
     [SerializeField] private float dropDistance = 0.5f;
     [SerializeField] private float dropDuration = 0.5f;
 
+    [Header("Shooting Parameters")]
+    [SerializeField] private float shotCooldown = 3f;
+    [SerializeField] private ObjectPool enemyBulletPool;
+    private float shotTimer;
+
     private Vector3 direction = Vector3.right;
     private List<Transform> enemies = new List<Transform>();
     private float currentYPosition;
@@ -34,6 +39,10 @@ public class EnemyFormation : MonoBehaviour
     {
         MoveFormation();
         moveSpeed = 1f + (enemies.Count - ActiveEnemyCount()) * accelerationPerKilledEnemy;
+
+        shotTimer += Time.deltaTime;
+        if (shotTimer >= shotCooldown)
+            PerformShot();
     }
 
     private void SpawnFormation()
@@ -70,6 +79,17 @@ public class EnemyFormation : MonoBehaviour
             }
         }
     }
+    private void PerformShot()
+    {
+        shotTimer = 0;
+
+        //Choose random bottom enemy to perform shot
+        List<Transform> bottomEnemies = GetBottomEnemies();
+        Transform firePoint = bottomEnemies[Random.Range(0, bottomEnemies.Count)];
+
+        if (enemyBulletPool != null && firePoint != null)
+            enemyBulletPool.GetFromPool(firePoint.position, Quaternion.identity);
+    }
     private int ActiveEnemyCount()
     {
         int count = 0;
@@ -79,5 +99,20 @@ public class EnemyFormation : MonoBehaviour
                 count++;
         }
         return count;
+    }
+    private List<Transform> GetBottomEnemies()
+    {
+        Dictionary<int, Transform> bottomEnemies = new Dictionary<int, Transform>();
+
+        foreach (var enemy in enemies)
+        {
+            if (enemy == null || !enemy.gameObject.activeInHierarchy) continue;
+
+            int xKey = Mathf.RoundToInt(enemy.localPosition.x * 100f); // group by X
+            if (!bottomEnemies.ContainsKey(xKey) || enemy.localPosition.y < bottomEnemies[xKey].localPosition.y)
+                bottomEnemies[xKey] = enemy;
+        }
+
+        return new List<Transform>(bottomEnemies.Values);
     }
 }
