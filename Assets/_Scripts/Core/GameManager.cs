@@ -1,16 +1,25 @@
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+    public enum GameState
+    { 
+        Menu,
+        Game,
+        Paused,
+        Over
     }
+    public Action<GameState> OnGameStateChanged { get; set; }
+    private GameState currentGameState;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        ChangeGameState(GameState.Menu);
+    }
+    public void ChangeGameState(GameState newState)
+    {
+        currentGameState = newState;
+        OnGameStateChanged?.Invoke(currentGameState);
     }
 }
