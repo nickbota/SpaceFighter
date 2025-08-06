@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 using System.Collections.Generic;
 
 public class ObjectPool : MonoBehaviour
@@ -7,6 +8,13 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private int poolSize = 20;
 
     private Queue<GameObject> pool = new Queue<GameObject>();
+
+    private GameManager gameManager;
+    [Inject]
+    private void Init(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+    }
 
     private void Awake()
     {
@@ -27,6 +35,7 @@ public class ObjectPool : MonoBehaviour
         obj.SetActive(true);
 
         Bullet bullet = obj.GetComponent<Bullet>();
+        bullet.GetComponent<PausableObject>().SetGameManager(gameManager);
         bullet?.Initialize(this);
 
         return obj;

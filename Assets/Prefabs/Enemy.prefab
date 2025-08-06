@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3767345337600414500}
   - component: {fileID: 8014957777606854620}
+  - component: {fileID: 8081277228363649565}
   m_Layer: 7
-  m_Name: Square
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,6 +88,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8081277228363649565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6137677913262675173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369f31b3a5170c0459c81c2b5d38f6e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySprites:
+  - {fileID: 21300000, guid: 26447bdd5ea530345b519d76d8f62395, type: 3}
+  - {fileID: 21300000, guid: e8a5d05785ce3674fa0e53cee072a617, type: 3}
+  - {fileID: 21300000, guid: 1bc3f776bc8b5014cb321abf356341ad, type: 3}
+  - {fileID: 21300000, guid: 5ce4a97769ad0df45a790cf9ec5fc0ad, type: 3}
+  - {fileID: 21300000, guid: ec58a76d84b7c1a4e96be2a44ece00aa, type: 3}
+  - {fileID: 21300000, guid: 3823c268f39f7ad49998a3dc5a4cccc9, type: 3}
 --- !u!1 &9041745240356374588
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,3 +218,4 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  scoreToAdd: 1
