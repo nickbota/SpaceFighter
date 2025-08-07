@@ -16,7 +16,7 @@ public class EnemyFormation : MonoBehaviour
     [Header("Horizontal Movement")]
     [SerializeField] private float xLimit = 4;
     [SerializeField] private float moveSpeed = 1f;
-    [SerializeField] private float accelerationPerKilledEnemy = 0.05f;
+    [SerializeField] private float accelerationPerKilledEnemy = 0.1f;
 
     [Header("Vertical Movement")]
     [SerializeField] private float dropDistance = 0.5f;
@@ -27,17 +27,25 @@ public class EnemyFormation : MonoBehaviour
     [SerializeField] private ObjectPool enemyBulletPool;
     private float shotTimer;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip enemyShotSound;
+    [SerializeField] private AudioClip enemyDeathSound;
+    [SerializeField] private AudioClip flyInSound;
+
     private Vector3 direction = Vector3.right;
     private List<Transform> enemies = new List<Transform>();
     private float currentYPosition;
     private int flyInsToComplete;
     private bool ready;
+    private int activeEnemyCount;
 
     private GameManager gameManager;
+    private SoundManager soundManager;
     [Inject]
-    private void Init(GameManager gameManager)
+    private void Init(GameManager gameManager, SoundManager soundManager)
     {
         this.gameManager = gameManager;
+        this.soundManager = soundManager;
     }
 
     private void Awake()
@@ -47,6 +55,7 @@ public class EnemyFormation : MonoBehaviour
     private void Start()
     {
         SpawnFormation();
+        UpdateEnemyCount();
         currentYPosition = transform.position.y;
     }
     private void Update()
@@ -54,7 +63,7 @@ public class EnemyFormation : MonoBehaviour
         if (!ready) return;
 
         MoveFormation();
-        moveSpeed = 1f + (enemies.Count - ActiveEnemyCount()) * accelerationPerKilledEnemy;
+        moveSpeed = 1f + (enemies.Count - activeEnemyCount) * accelerationPerKilledEnemy;
 
         shotTimer += Time.deltaTime;
         if (shotTimer >= shotCooldown)
@@ -64,6 +73,8 @@ public class EnemyFormation : MonoBehaviour
     public void AddScore(int score)
     {
         gameManager.AddScore(score);
+        soundManager.PlaySound(enemyDeathSound);
+        UpdateEnemyCount();
     }
 
     private void SpawnFormation()
@@ -87,7 +98,9 @@ public class EnemyFormation : MonoBehaviour
                 float delay = row * 0.1f + Random.Range(0f, 0.1f);
 
                 enemy.transform.DOMove(finalPos, duration)
-                    .SetEase(Ease.InOutBack).SetDelay(delay).OnComplete(()=>
+                    .SetEase(Ease.InOutBack).SetDelay(delay)
+                    .OnStart(() => soundManager.PlaySound(flyInSound))
+                    .OnComplete(() =>
                     {
                         flyInsToComplete--;
                         if (flyInsToComplete == 0)
@@ -109,9 +122,15 @@ public class EnemyFormation : MonoBehaviour
             //If yes, drop the formation and change the movement direction
             if (enemyX < -xLimit || enemyX > xLimit)
             {
-                direction *= -1;
+                ready = false;
+
                 currentYPosition -= dropDistance;
-                transform.DOMoveY(currentYPosition, dropDuration);
+                transform.DOMoveY(currentYPosition, dropDuration).OnComplete(()=>
+                {
+                    direction *= -1;
+                    transform.position += direction * 0.1f;
+                    ready = true;
+                });
 
                 break;
             }
@@ -127,16 +146,18 @@ public class EnemyFormation : MonoBehaviour
 
         if (enemyBulletPool != null && firePoint != null)
             enemyBulletPool.GetFromPool(firePoint.position, Quaternion.identity);
+
+        soundManager.PlaySound(enemyShotSound);
     }
-    private int ActiveEnemyCount()
+    private void UpdateEnemyCount()
     {
         int count = 0;
         foreach (var enemy in enemies)
         {
-            if (enemy != null)
+            if (enemy.gameObject.activeInHierarchy)
                 count++;
         }
-        return count;
+        activeEnemyCount = count;
     }
     private List<Transform> GetBottomEnemies()
     {

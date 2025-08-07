@@ -347,11 +347,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3935937817420105098}
-  - component: {fileID: 1947846797748848751}
+  - component: {fileID: 731737796507144165}
   - component: {fileID: 6565909000216508397}
+  - component: {fileID: 5677815497021214334}
+  - component: {fileID: 1947846797748848751}
+  - component: {fileID: 6971445463468208626}
   - component: {fileID: 2445506100785744933}
   - component: {fileID: 4410750665910196478}
-  - component: {fileID: 6971445463468208626}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -378,7 +380,7 @@ Transform:
   - {fileID: 3373383917832150905}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1947846797748848751
+--- !u!114 &731737796507144165
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -387,9 +389,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 6252074021124588744}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59054f198769de0448fa55e8fa56c38c, type: 3}
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 5fd1a9b0487bc6a4bbee1723ce00f72d, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!60 &6565909000216508397
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -420,38 +440,97 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.21161047, y: 0.7401233}
-      - {x: 0.0027706623, y: 0.9362745}
-      - {x: -0.25219482, y: 0.6849861}
-      - {x: -0.3705591, y: 0.45508623}
-      - {x: -0.56039166, y: 0.08459261}
-      - {x: -0.964789, y: -0.14831161}
-      - {x: -1.2416639, y: -0.8699713}
-      - {x: -0.5877852, y: -0.8090172}
-      - {x: -0.5877852, y: -0.80901706}
-      - {x: -0.0007905476, y: -0.9143028}
-      - {x: 0.58778536, y: -0.80901694}
-      - {x: 1.2449704, y: -0.8673725}
-      - {x: 0.95371795, y: -0.13754082}
-      - {x: 0.6268877, y: 0.040262163}
+    - - {x: 0.58, y: -0.89}
+      - {x: 0.83, y: -0.76}
+      - {x: 0.87, y: -0.79999995}
+      - {x: 1.06, y: -0.87}
+      - {x: 1.12, y: -0.87}
+      - {x: 1.1899999, y: -0.74}
+      - {x: 1.1999999, y: -0.55}
+      - {x: 1.28, y: -0.41}
+      - {x: 1.28, y: -0.31}
+      - {x: 1.18, y: 0.13}
+      - {x: 1.1, y: 0.17999999}
+      - {x: 1.06, y: 0.47}
+      - {x: 0.96999997, y: 0.61}
+      - {x: 0.77, y: 0.78999996}
+      - {x: 0.63, y: 0.88}
+      - {x: 0.59, y: 0.90999997}
+      - {x: 0.52, y: 0.90999997}
+      - {x: 0.48, y: 0.89}
+      - {x: 0.48999998, y: 0.84}
+      - {x: 0.59, y: 0.45}
+      - {x: 0.55, y: 0.39}
+      - {x: 0.42, y: 0.19}
+      - {x: 0.39, y: 0.14}
+      - {x: 0.48, y: 0.02}
+      - {x: 0.35999998, y: 0.03}
+      - {x: 0.31, y: 0.14}
+      - {x: 0.26, y: 0.21}
+      - {x: 0.31, y: 0.29}
+      - {x: 0.31, y: 0.32999998}
+      - {x: 0.22999999, y: 0.48}
+      - {x: 0.14999999, y: 0.59}
+      - {x: 0.02, y: 0.72999996}
+      - {x: -0.01, y: 0.72999996}
+      - {x: -0.14999999, y: 0.59}
+      - {x: -0.22999999, y: 0.48}
+      - {x: -0.31, y: 0.32999998}
+      - {x: -0.31, y: 0.29}
+      - {x: -0.26, y: 0.21}
+      - {x: -0.31, y: 0.14}
+      - {x: -0.45999998, y: 0}
+      - {x: -0.41, y: 0.11}
+      - {x: -0.39999998, y: 0.16}
+      - {x: -0.44, y: 0.22999999}
+      - {x: -0.5, y: 0.32}
+      - {x: -0.58, y: 0.48}
+      - {x: -0.47, y: 0.89}
+      - {x: -0.51, y: 0.90999997}
+      - {x: -0.59, y: 0.90999997}
+      - {x: -0.82, y: 0.76}
+      - {x: -0.96999997, y: 0.59999996}
+      - {x: -1.06, y: 0.47}
+      - {x: -1.09, y: 0.31}
+      - {x: -1.09, y: 0.24}
+      - {x: -1.1999999, y: 0.08}
+      - {x: -1.28, y: -0.32999998}
+      - {x: -1.28, y: -0.39}
+      - {x: -1.27, y: -0.45}
+      - {x: -1.2099999, y: -0.51}
+      - {x: -1.1999999, y: -0.64}
+      - {x: -1.18, y: -0.74}
+      - {x: -1.12, y: -0.87}
+      - {x: -1.05, y: -0.87}
+      - {x: -0.89, y: -0.82}
+      - {x: -0.83, y: -0.77}
+      - {x: -0.58, y: -0.89}
+      - {x: -0.35, y: -0.88}
+      - {x: -0.22999999, y: -0.87}
+      - {x: -0.16, y: -0.77}
+      - {x: -0.01, y: -0.90999997}
+      - {x: 0.02, y: -0.90999997}
+      - {x: 0.16, y: -0.77}
+      - {x: 0.25, y: -0.84999996}
+      - {x: 0.35999998, y: -0.88}
   m_UseDelaunayMesh: 0
---- !u!114 &2445506100785744933
+--- !u!114 &5677815497021214334
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -460,12 +539,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6252074021124588744}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb313632bdd329540871b601a4a8ca08, type: 3}
+  m_Script: {fileID: 11500000, guid: dcf7cb8e6b115564abf2536b7adbdd9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
-  boundsX: 4.5
---- !u!114 &4410750665910196478
+--- !u!114 &1947846797748848751
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -474,12 +551,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6252074021124588744}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b68289a8fe17eb54b985748cdecd1bad, type: 3}
+  m_Script: {fileID: 11500000, guid: 59054f198769de0448fa55e8fa56c38c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPool: {fileID: 0}
-  firePoint: {fileID: 3373383917832150905}
-  shootCooldown: 0.5
 --- !u!114 &6971445463468208626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,7 +569,19 @@ MonoBehaviour:
   initialHealth: 3
   OnHurt:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5677815497021214334}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 6a1f52fd452b72a47804ed7150764967, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDeath:
     m_PersistentCalls:
       m_Calls:
@@ -513,7 +599,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: EndGame
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -523,4 +609,60 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5677815497021214334}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 9ac29bbe6ba2ca7418e9b4f663db9d67, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   scoreToAdd: 0
+--- !u!114 &2445506100785744933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252074021124588744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb313632bdd329540871b601a4a8ca08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 5
+  boundsX: 4.5
+--- !u!114 &4410750665910196478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252074021124588744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b68289a8fe17eb54b985748cdecd1bad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPool: {fileID: 0}
+  firePoint: {fileID: 3373383917832150905}
+  shootCooldown: 0.5
+  OnShoot:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5677815497021214334}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: db1dc0915a966af4082c949011d07529, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

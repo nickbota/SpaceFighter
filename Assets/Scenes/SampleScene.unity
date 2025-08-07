@@ -4031,6 +4031,7 @@ GameObject:
   - component: {fileID: 1638346368}
   - component: {fileID: 1638346370}
   - component: {fileID: 1638346369}
+  - component: {fileID: 1638346371}
   m_Layer: 0
   m_Name: EnemyFormation
   m_TagString: Untagged
@@ -4073,9 +4074,12 @@ MonoBehaviour:
   moveSpeed: 1
   accelerationPerKilledEnemy: 0.05
   dropDistance: 0.75
-  dropDuration: 0.5
+  dropDuration: 0.25
   shotCooldown: 3
   enemyBulletPool: {fileID: 1010394565}
+  enemyShotSound: {fileID: 8300000, guid: e42e1dd9529626f4f8a98c5c9cc6703f, type: 3}
+  enemyDeathSound: {fileID: 8300000, guid: 067d55a7db6ede34bbf27e8e1c900a54, type: 3}
+  flyInSound: {fileID: 8300000, guid: 445fe70cd51a7524aa1dd53df3c4584e, type: 3}
 --- !u!114 &1638346370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4088,6 +4092,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59054f198769de0448fa55e8fa56c38c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1638346371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638346367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd44acc47eade54dab82bfb2b925cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 9041745240356374588, guid: dcef5f87146149e489c6db4a4bf427b6, type: 3}
+  poolSize: 20
 --- !u!1 &1669314890
 GameObject:
   m_ObjectHideFlags: 0
@@ -4900,6 +4918,10 @@ PrefabInstance:
       propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 926947258}
+    - target: {fileID: 6971445463468208626, guid: f7b60f90794c5e34a84c38ae4002be4a, type: 3}
+      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: EndGame
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
