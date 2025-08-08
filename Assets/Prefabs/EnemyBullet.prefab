@@ -64,8 +64,10 @@ MonoBehaviour:
   lifetime: 5
   damageLayer:
     serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 64
   damage: 1
+  bulletAnimator: {fileID: 5789071182135470644}
+  coll: {fileID: 3520718006808577120}
 --- !u!61 &3520718006808577120
 BoxCollider2D:
   m_ObjectHideFlags: 0

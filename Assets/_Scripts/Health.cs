@@ -21,12 +21,12 @@ public class Health : MonoBehaviour
     private void Awake()
     {
         currentHealth = initialHealth;
-        enemyFormation = GetComponentInParent<EnemyFormation>();
+        enemyFormation = FindFirstObjectByType<EnemyFormation>();
     }
     private void OnDisable()
     {
         if (scoreToAdd == 0) return;
-        enemyFormation.AddScore(scoreToAdd);
+        enemyFormation.AddScore(scoreToAdd, gameObject);
     }
 
     public void ChangeHealth(int change)

@@ -28,15 +28,20 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject GetFromPool(Vector3 position, Quaternion rotation)
     {
-        GameObject obj = pool.Count > 0 ? pool.Dequeue() : Instantiate(prefab);
+        GameObject obj = pool.Count > 0 ? pool.Dequeue() : Instantiate(prefab, transform);
 
         obj.transform.position = position;
         obj.transform.rotation = rotation;
-        obj.SetActive(true);
 
-        Bullet bullet = obj.GetComponent<Bullet>();
-        bullet.GetComponent<PausableObject>().SetGameManager(gameManager);
-        bullet?.Initialize(this);
+        //If the object is a bullet set up the game manager
+        if (obj.TryGetComponent(out Bullet bullet))
+        {
+            bullet = obj.GetComponent<Bullet>();
+            bullet.GetComponent<PausableObject>().SetGameManager(gameManager);
+            bullet?.Initialize(this);
+        }
+
+        obj.SetActive(true);
 
         return obj;
     }

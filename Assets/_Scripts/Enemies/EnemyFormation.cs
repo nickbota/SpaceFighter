@@ -5,10 +5,8 @@ using DG.Tweening;
 
 public class EnemyFormation : MonoBehaviour
 {
-    [Header("Enemy Prefab")]
-    [SerializeField] private GameObject enemyPrefab;
-
-    [Header("Grid Size")]
+    [Header("Enemy Formation")]
+    [SerializeField] private ObjectPool enemyPool;
     [SerializeField] private int rows = 3;
     [SerializeField] private int columns = 6;
     [SerializeField] private float spacing = 1.5f;
@@ -56,7 +54,6 @@ public class EnemyFormation : MonoBehaviour
     {
         SpawnFormation();
         UpdateEnemyCount();
-        currentYPosition = transform.position.y;
     }
     private void Update()
     {
@@ -70,18 +67,24 @@ public class EnemyFormation : MonoBehaviour
             PerformShot();
     }
 
-    public void AddScore(int score)
+    public void AddScore(int score, GameObject enemy)
     {
+        enemyPool?.ReturnToPool(enemy);
         gameManager.AddScore(score);
         soundManager.PlaySound(enemyDeathSound);
         UpdateEnemyCount();
+
+        if (activeEnemyCount == 0 && ready)
+            SpawnFormation();
     }
 
     private void SpawnFormation()
     {
+        currentYPosition = transform.position.y;
         ready = false;
         enemies.Clear();
         flyInsToComplete = rows * columns;
+        Debug.Log("Spawning new formation");
 
         for (int row = 0; row < rows; row++)
         {
@@ -89,9 +92,13 @@ public class EnemyFormation : MonoBehaviour
             {
                 Vector3 finalPos = transform.position + new Vector3(col * spacing, -row * spacing, 0);
                 Vector3 initPos = finalPos + new Vector3(0, 15, 0);
+                GameObject enemy = null;
 
-                GameObject enemy = Instantiate(enemyPrefab, initPos, Quaternion.identity, transform);
-                enemies.Add(enemy.transform);
+                if (enemyPool != null)
+                    enemy = enemyPool.GetFromPool(initPos, Quaternion.identity);
+
+                if(!enemies.Contains(enemy.transform))
+                    enemies.Add(enemy.transform);
 
                 //Fly-in animation
                 float duration = Random.Range(0.25f, 1);
@@ -142,6 +149,8 @@ public class EnemyFormation : MonoBehaviour
 
         //Choose random bottom enemy to perform shot
         List<Transform> bottomEnemies = GetBottomEnemies();
+        if (bottomEnemies.Count == 0) return;
+
         Transform firePoint = bottomEnemies[Random.Range(0, bottomEnemies.Count)];
 
         if (enemyBulletPool != null && firePoint != null)
