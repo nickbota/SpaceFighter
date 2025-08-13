@@ -6,6 +6,7 @@ using TMPro;
 public class Counter : MonoBehaviour
 {
     [SerializeField] protected string textToAdd;
+    [SerializeField] protected Vector3 punchScale = new Vector3(0.2f, 0.2f, 0.2f);
     protected TextMeshProUGUI counterText;
 
     protected void Awake()
@@ -15,7 +16,6 @@ public class Counter : MonoBehaviour
     public void UpdateCounter(string counterTextValue)
     {
         counterText.text = textToAdd + counterTextValue;
-        Vector3 punchScale = new Vector3(0.1f, 0.1f, 0.1f);
         float punchDuration = 0.25f;
         counterText.transform.DOPunchScale(punchScale, punchDuration);
     }

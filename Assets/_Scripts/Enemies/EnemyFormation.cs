@@ -13,8 +13,9 @@ public class EnemyFormation : MonoBehaviour
 
     [Header("Horizontal Movement")]
     [SerializeField] private float xLimit = 4;
-    [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float initialMoveSpeed = 1f;
     [SerializeField] private float accelerationPerKilledEnemy = 0.1f;
+    [SerializeField] private float accelerationPerWave = 0.15f;
 
     [Header("Vertical Movement")]
     [SerializeField] private float dropDistance = 0.5f;
@@ -43,6 +44,7 @@ public class EnemyFormation : MonoBehaviour
     private bool waveIncoming;
     private float newWaveTimer;
     private float newWaveDelay = 2;
+    private int waveNumber = -1;
 
     private GameManager gameManager;
     private SoundManager soundManager;
@@ -76,8 +78,8 @@ public class EnemyFormation : MonoBehaviour
 
         if (!ready) return;
 
+        initialMoveSpeed = 1f + (enemies.Count - activeEnemyCount) * accelerationPerKilledEnemy + (accelerationPerWave * waveNumber);
         MoveFormation();
-        moveSpeed = 1f + (enemies.Count - activeEnemyCount) * accelerationPerKilledEnemy;
 
         shotTimer += Time.deltaTime;
         if (shotTimer >= shotCooldown)
@@ -93,6 +95,7 @@ public class EnemyFormation : MonoBehaviour
 
     private void SpawnFormation()
     {
+        waveNumber++;
         transform.position = initialPosition;
         currentYPosition = transform.position.y;
         enemies.Clear();
@@ -132,7 +135,7 @@ public class EnemyFormation : MonoBehaviour
     }
     private void MoveFormation()
     {
-        transform.position += direction * moveSpeed * Time.deltaTime;
+        transform.position += direction * initialMoveSpeed * Time.deltaTime;
 
         //Check each enemy to see if they're outside of the movement bouds
         foreach (var enemy in enemies)
