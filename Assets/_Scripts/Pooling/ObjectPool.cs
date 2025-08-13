@@ -6,8 +6,7 @@ public class ObjectPool : MonoBehaviour
 {
     [SerializeField] private GameObject prefab;
     [SerializeField] private int poolSize = 20;
-
-    private Queue<GameObject> pool = new Queue<GameObject>();
+    private List<GameObject> pooledObjects = new List<GameObject>();
 
     private GameManager gameManager;
     [Inject]
@@ -16,39 +15,60 @@ public class ObjectPool : MonoBehaviour
         this.gameManager = gameManager;
     }
 
-    private void Awake()
-    {
-        for (int i = 0; i < poolSize; i++)
-        {
-            GameObject obj = Instantiate(prefab, transform);
-            obj.SetActive(false);
-            pool.Enqueue(obj);
-        }
-    }
-
     public GameObject GetFromPool(Vector3 position, Quaternion rotation)
     {
-        GameObject obj = pool.Count > 0 ? pool.Dequeue() : Instantiate(prefab, transform);
+        GameObject objectToReturn = null;
 
-        obj.transform.position = position;
-        obj.transform.rotation = rotation;
-
-        //If the object is a bullet set up the game manager
-        if (obj.TryGetComponent(out Bullet bullet))
+        //If too many projectiles return the first one
+        if (pooledObjects.Count >= poolSize)
         {
-            bullet = obj.GetComponent<Bullet>();
-            bullet.GetComponent<PausableObject>().SetGameManager(gameManager);
-            bullet?.Initialize(this);
+            pooledObjects[0].SetActive(false);
+            objectToReturn = pooledObjects[0];
+        }
+        else
+        {
+            bool newObjectNeeded = true;
+
+            //If any object available return it
+            foreach (var item in pooledObjects)
+            {
+                if (!item.gameObject.activeInHierarchy)
+                {
+                    objectToReturn = item;
+                    newObjectNeeded = false;
+                }
+            }
+
+            //Else create new object and return it
+            if (newObjectNeeded)
+            {
+                GameObject newObject = Instantiate(prefab, position, rotation, transform);
+                if (newObject.TryGetComponent(out Bullet bullet))
+                {
+                    //If any object available return it
+                    foreach (var item in pooledObjects)
+                    {
+                        bullet = newObject.GetComponent<Bullet>();
+                        bullet.GetComponent<PausableObject>().SetGameManager(gameManager);
+                        bullet?.Initialize(this);
+                    }
+                }
+                objectToReturn = newObject;
+            }
         }
 
-        obj.SetActive(true);
+        objectToReturn.transform.position = position;
+        objectToReturn.transform.rotation = rotation;
+        objectToReturn.SetActive(true);
 
-        return obj;
+        if(!pooledObjects.Contains(objectToReturn) )
+            pooledObjects.Add(objectToReturn);
+
+        return objectToReturn;
     }
 
     public void ReturnToPool(GameObject obj)
     {
         obj.SetActive(false);
-        pool.Enqueue(obj);
     }
 }

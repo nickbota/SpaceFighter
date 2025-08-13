@@ -26,11 +26,8 @@ public class PlayerShooting : MonoBehaviour
     }
     private void PerformShot()
     {
-        if (bulletPool != null && firePoint != null)
-        {
-            bulletPool.GetFromPool(firePoint.position, Quaternion.identity);
-            OnShoot?.Invoke();
-        }
+        GameObject bullet = bulletPool.GetFromPool(firePoint.position, Quaternion.identity);
+        OnShoot?.Invoke();
     }
 
     #region Input

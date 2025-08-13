@@ -35,7 +35,7 @@ public class EnemyFormation : MonoBehaviour
     private float currentYPosition;
     private int flyInsToComplete;
     private bool ready;
-    private int activeEnemyCount;
+    private int activeEnemyCount = 999;
 
     private GameManager gameManager;
     private SoundManager soundManager;
@@ -53,7 +53,6 @@ public class EnemyFormation : MonoBehaviour
     private void Start()
     {
         SpawnFormation();
-        UpdateEnemyCount();
     }
     private void Update()
     {
@@ -73,9 +72,6 @@ public class EnemyFormation : MonoBehaviour
         gameManager.AddScore(score);
         soundManager.PlaySound(enemyDeathSound);
         UpdateEnemyCount();
-
-        if (activeEnemyCount == 0 && ready)
-            SpawnFormation();
     }
 
     private void SpawnFormation()
@@ -84,7 +80,6 @@ public class EnemyFormation : MonoBehaviour
         ready = false;
         enemies.Clear();
         flyInsToComplete = rows * columns;
-        Debug.Log("Spawning new formation");
 
         for (int row = 0; row < rows; row++)
         {
@@ -93,11 +88,9 @@ public class EnemyFormation : MonoBehaviour
                 Vector3 finalPos = transform.position + new Vector3(col * spacing, -row * spacing, 0);
                 Vector3 initPos = finalPos + new Vector3(0, 15, 0);
                 GameObject enemy = null;
+                enemy = enemyPool.GetFromPool(initPos, Quaternion.identity);
 
-                if (enemyPool != null)
-                    enemy = enemyPool.GetFromPool(initPos, Quaternion.identity);
-
-                if(!enemies.Contains(enemy.transform))
+                if (!enemies.Contains(enemy.transform))
                     enemies.Add(enemy.transform);
 
                 //Fly-in animation
@@ -115,6 +108,8 @@ public class EnemyFormation : MonoBehaviour
                     });
             }
         }
+
+        UpdateEnemyCount();
     }
     private void MoveFormation()
     {
@@ -152,9 +147,7 @@ public class EnemyFormation : MonoBehaviour
         if (bottomEnemies.Count == 0) return;
 
         Transform firePoint = bottomEnemies[Random.Range(0, bottomEnemies.Count)];
-
-        if (enemyBulletPool != null && firePoint != null)
-            enemyBulletPool.GetFromPool(firePoint.position, Quaternion.identity);
+        enemyBulletPool.GetFromPool(firePoint.position, Quaternion.identity);
 
         soundManager.PlaySound(enemyShotSound);
     }
@@ -167,6 +160,9 @@ public class EnemyFormation : MonoBehaviour
                 count++;
         }
         activeEnemyCount = count;
+
+        if (activeEnemyCount == 0 && ready)
+            SpawnFormation();
     }
     private List<Transform> GetBottomEnemies()
     {

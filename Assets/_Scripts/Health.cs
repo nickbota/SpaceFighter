@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
     }
     private void OnDisable()
     {
-        if (scoreToAdd == 0) return;
+        if (scoreToAdd == 0 || enemyFormation == null) return;
         enemyFormation.AddScore(scoreToAdd, gameObject);
     }
 

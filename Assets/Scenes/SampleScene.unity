@@ -4949,14 +4949,6 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6971445463468208626, guid: f7b60f90794c5e34a84c38ae4002be4a, type: 3}
-      propertyPath: OnHurt.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6971445463468208626, guid: f7b60f90794c5e34a84c38ae4002be4a, type: 3}
-      propertyPath: OnHurt.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6971445463468208626, guid: f7b60f90794c5e34a84c38ae4002be4a, type: 3}
       propertyPath: OnHurt.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 519420033}
@@ -4964,30 +4956,6 @@ PrefabInstance:
       propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 926947258}
-    - target: {fileID: 6971445463468208626, guid: f7b60f90794c5e34a84c38ae4002be4a, type: 3}
-      propertyPath: OnHurt.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6971445463468208626, guid: f7b60f90794c5e34a84c38ae4002be4a, type: 3}
-      propertyPath: OnHurt.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ShakeCamera
-      objectReference: {fileID: 0}
-    - target: {fileID: 6971445463468208626, guid: f7b60f90794c5e34a84c38ae4002be4a, type: 3}
-      propertyPath: OnDeath.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: EndGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 6971445463468208626, guid: f7b60f90794c5e34a84c38ae4002be4a, type: 3}
-      propertyPath: OnHurt.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: CameraController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 6971445463468208626, guid: f7b60f90794c5e34a84c38ae4002be4a, type: 3}
-      propertyPath: OnHurt.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6971445463468208626, guid: f7b60f90794c5e34a84c38ae4002be4a, type: 3}
-      propertyPath: OnHurt.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5873942054518849985, guid: f7b60f90794c5e34a84c38ae4002be4a, type: 3}
     m_RemovedGameObjects: []
