@@ -354,7 +354,6 @@ Transform:
   m_Children:
   - {fileID: 1941186298}
   - {fileID: 1010394564}
-  - {fileID: 833425233}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &159654895
@@ -1349,7 +1348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 0.25
-  strength: {x: 0.1, y: 0.1, z: 0.1}
+  strength: {x: 0.2, y: 0.2, z: 0.2}
   vibration: 10
   randomness: 90
 --- !u!1 &561183700
@@ -2078,7 +2077,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SPACE VISITORS
+  m_text: SPACE FIGHTER
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 59298981bb2f19f4c839515992122050, type: 2}
   m_sharedMaterial: {fileID: -7637415105646579782, guid: 59298981bb2f19f4c839515992122050, type: 2}
@@ -2105,7 +2104,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 189.9
+  m_fontSize: 200
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2303,52 +2302,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3816842540423510009, guid: 13fe1c2dcbf1e5c4ab884df25b75d8d8, type: 3}
   m_PrefabInstance: {fileID: 752125954}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &833425232
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 833425233}
-  - component: {fileID: 833425234}
-  m_Layer: 0
-  m_Name: EnemyPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &833425233
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 833425232}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 112567500}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &833425234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 833425232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bd44acc47eade54dab82bfb2b925cb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 9041745240356374588, guid: dcef5f87146149e489c6db4a4bf427b6, type: 3}
-  poolSize: 20
 --- !u!1 &872955866
 GameObject:
   m_ObjectHideFlags: 0
@@ -2980,7 +2933,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1031221559
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4079,6 +4032,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1638346368}
   - component: {fileID: 1638346370}
+  - component: {fileID: 1638346371}
   - component: {fileID: 1638346369}
   m_Layer: 0
   m_Name: EnemyFormation
@@ -4114,7 +4068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6faa853e1c42c8345b2d887f21c581dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPool: {fileID: 833425234}
+  enemyPool: {fileID: 1638346371}
   rows: 5
   columns: 4
   spacing: 1.5
@@ -4125,6 +4079,7 @@ MonoBehaviour:
   dropDuration: 0.25
   shotCooldown: 3
   enemyBulletPool: {fileID: 1010394565}
+  newWaveSound: {fileID: 8300000, guid: 1a49b5aad390032498ab636cbf706240, type: 3}
   enemyShotSound: {fileID: 8300000, guid: e42e1dd9529626f4f8a98c5c9cc6703f, type: 3}
   enemyDeathSound: {fileID: 8300000, guid: 067d55a7db6ede34bbf27e8e1c900a54, type: 3}
   flyInSound: {fileID: 8300000, guid: 445fe70cd51a7524aa1dd53df3c4584e, type: 3}
@@ -4140,6 +4095,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59054f198769de0448fa55e8fa56c38c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1638346371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638346367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd44acc47eade54dab82bfb2b925cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 9041745240356374588, guid: dcef5f87146149e489c6db4a4bf427b6, type: 3}
+  poolSize: 20
 --- !u!1 &1669314890
 GameObject:
   m_ObjectHideFlags: 0

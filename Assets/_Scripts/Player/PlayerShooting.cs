@@ -26,7 +26,7 @@ public class PlayerShooting : MonoBehaviour
     }
     private void PerformShot()
     {
-        GameObject bullet = bulletPool.GetFromPool(firePoint.position, Quaternion.identity);
+        bulletPool.GetFromPool(firePoint.position, Quaternion.identity);
         OnShoot?.Invoke();
     }
 

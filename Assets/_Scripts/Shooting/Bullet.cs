@@ -28,10 +28,7 @@ public class Bullet : MonoBehaviour
     {
         ResetBullet();
     }
-    private void OnDisable()
-    {
-        pool?.ReturnToPool(gameObject);
-    }
+
     private void Update()
     {
         if (!moving) return;

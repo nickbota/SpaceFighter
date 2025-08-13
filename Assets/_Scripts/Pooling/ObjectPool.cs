@@ -19,56 +19,42 @@ public class ObjectPool : MonoBehaviour
     {
         GameObject objectToReturn = null;
 
-        //If too many projectiles return the first one
-        if (pooledObjects.Count >= poolSize)
+        bool newObjectNeeded = true;
+
+        //If any object available return it
+        foreach (var item in pooledObjects)
         {
-            pooledObjects[0].SetActive(false);
-            objectToReturn = pooledObjects[0];
+            if (!item.gameObject.activeInHierarchy)
+            {
+                objectToReturn = item;
+                newObjectNeeded = false;
+            }
         }
-        else
+
+        //Else create new object and return it
+        if (newObjectNeeded)
         {
-            bool newObjectNeeded = true;
-
-            //If any object available return it
-            foreach (var item in pooledObjects)
+            GameObject newObject = Instantiate(prefab, position, rotation, transform);
+            if (newObject.TryGetComponent(out Bullet bullet))
             {
-                if (!item.gameObject.activeInHierarchy)
+                //If any object available return it
+                foreach (var item in pooledObjects)
                 {
-                    objectToReturn = item;
-                    newObjectNeeded = false;
+                    bullet = newObject.GetComponent<Bullet>();
+                    bullet.GetComponent<PausableObject>().SetGameManager(gameManager);
+                    bullet?.Initialize(this);
                 }
             }
-
-            //Else create new object and return it
-            if (newObjectNeeded)
-            {
-                GameObject newObject = Instantiate(prefab, position, rotation, transform);
-                if (newObject.TryGetComponent(out Bullet bullet))
-                {
-                    //If any object available return it
-                    foreach (var item in pooledObjects)
-                    {
-                        bullet = newObject.GetComponent<Bullet>();
-                        bullet.GetComponent<PausableObject>().SetGameManager(gameManager);
-                        bullet?.Initialize(this);
-                    }
-                }
-                objectToReturn = newObject;
-            }
+            objectToReturn = newObject;
         }
 
         objectToReturn.transform.position = position;
         objectToReturn.transform.rotation = rotation;
         objectToReturn.SetActive(true);
 
-        if(!pooledObjects.Contains(objectToReturn) )
+        if (!pooledObjects.Contains(objectToReturn))
             pooledObjects.Add(objectToReturn);
 
         return objectToReturn;
-    }
-
-    public void ReturnToPool(GameObject obj)
-    {
-        obj.SetActive(false);
     }
 }

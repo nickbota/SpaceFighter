@@ -26,16 +26,23 @@ public class EnemyFormation : MonoBehaviour
     private float shotTimer;
 
     [Header("Sounds")]
+    [SerializeField] private AudioClip newWaveSound;
     [SerializeField] private AudioClip enemyShotSound;
     [SerializeField] private AudioClip enemyDeathSound;
     [SerializeField] private AudioClip flyInSound;
 
     private Vector3 direction = Vector3.right;
+    private Vector3 initialPosition;
     private List<Transform> enemies = new List<Transform>();
     private float currentYPosition;
     private int flyInsToComplete;
     private bool ready;
     private int activeEnemyCount = 999;
+
+    //Wave incoming parameters
+    private bool waveIncoming;
+    private float newWaveTimer;
+    private float newWaveDelay = 2;
 
     private GameManager gameManager;
     private SoundManager soundManager;
@@ -49,13 +56,24 @@ public class EnemyFormation : MonoBehaviour
     private void Awake()
     {
         enabled = false;
+        initialPosition = transform.position;
     }
     private void Start()
     {
-        SpawnFormation();
+        SpawnNewWave();
     }
     private void Update()
     {
+        if (waveIncoming)
+        {
+            newWaveTimer += Time.deltaTime;
+            if (newWaveTimer > newWaveDelay)
+            {
+                SpawnFormation();
+                waveIncoming = false;
+            }
+        }
+
         if (!ready) return;
 
         MoveFormation();
@@ -68,7 +86,6 @@ public class EnemyFormation : MonoBehaviour
 
     public void AddScore(int score, GameObject enemy)
     {
-        enemyPool?.ReturnToPool(enemy);
         gameManager.AddScore(score);
         soundManager.PlaySound(enemyDeathSound);
         UpdateEnemyCount();
@@ -76,8 +93,8 @@ public class EnemyFormation : MonoBehaviour
 
     private void SpawnFormation()
     {
+        transform.position = initialPosition;
         currentYPosition = transform.position.y;
-        ready = false;
         enemies.Clear();
         flyInsToComplete = rows * columns;
 
@@ -89,6 +106,8 @@ public class EnemyFormation : MonoBehaviour
                 Vector3 initPos = finalPos + new Vector3(0, 15, 0);
                 GameObject enemy = null;
                 enemy = enemyPool.GetFromPool(initPos, Quaternion.identity);
+
+                Debug.Log($"{enemy.name} spawned!");
 
                 if (!enemies.Contains(enemy.transform))
                     enemies.Add(enemy.transform);
@@ -162,7 +181,7 @@ public class EnemyFormation : MonoBehaviour
         activeEnemyCount = count;
 
         if (activeEnemyCount == 0 && ready)
-            SpawnFormation();
+            SpawnNewWave();
     }
     private List<Transform> GetBottomEnemies()
     {
@@ -178,5 +197,12 @@ public class EnemyFormation : MonoBehaviour
         }
 
         return new List<Transform>(bottomEnemies.Values);
+    }
+    private void SpawnNewWave()
+    {
+        ready = false;
+        newWaveTimer = 0;
+        waveIncoming = true;
+        soundManager.PlaySound(newWaveSound);
     }
 }
