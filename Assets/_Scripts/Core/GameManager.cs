@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         int highScore = PlayerPrefs.GetInt("Highscore");
         if (currentScore > highScore)
             PlayerPrefs.SetInt("Highscore", currentScore);
+
         ChangeGameState(GameState.Over);
     }
     public void AddScore(int scoreToAdd)
