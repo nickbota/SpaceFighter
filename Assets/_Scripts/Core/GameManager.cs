@@ -19,6 +19,11 @@ public class GameManager : MonoBehaviour
     public int CurrentScore => currentScore;
     public Action<int> OnScoreChanged { get; set; }
 
+    //Wave
+    private int currentWave;
+    public int CurrentWave => currentWave;
+    public Action<int> OnWaveChanged { get; set; }
+
     private void Awake()
     {
         ChangeGameState(GameState.Menu);
@@ -39,9 +44,14 @@ public class GameManager : MonoBehaviour
     }
     public void EndGame()
     {
+        //Save high score and wave
         int highScore = PlayerPrefs.GetInt("Highscore");
         if (currentScore > highScore)
             PlayerPrefs.SetInt("Highscore", currentScore);
+
+        int highWave = PlayerPrefs.GetInt("HighWave");
+        if (currentWave > highWave)
+            PlayerPrefs.SetInt("HighWave", currentWave);
 
         ChangeGameState(GameState.Over);
     }
@@ -49,5 +59,10 @@ public class GameManager : MonoBehaviour
     {
         currentScore += scoreToAdd;
         OnScoreChanged?.Invoke(currentScore);
+    }
+    public void UpdateWave(int newWave)
+    {
+        currentWave = newWave + 1;
+        OnWaveChanged?.Invoke(currentWave);
     }
 }

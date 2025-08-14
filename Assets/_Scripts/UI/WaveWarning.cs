@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 using Zenject;
 using DG.Tweening;
 
@@ -7,6 +8,7 @@ public class WaveWarning : MonoBehaviour
     [Header("References")]
     [SerializeField] private EnemyFormation enemyFormation;
     [SerializeField] private GameObject warningObject;
+    [SerializeField] private TextMeshProUGUI warningText;
     [SerializeField] private AudioClip warningSound;
 
     [Header("Tween Parameters")]
@@ -17,10 +19,12 @@ public class WaveWarning : MonoBehaviour
     [SerializeField] private int loops = 3;
 
     private SoundManager soundManager;
+    private GameManager gameManager;
     [Inject]
-    private void Init(SoundManager soundManager)
+    private void Init(SoundManager soundManager, GameManager gameManager)
     {
         this.soundManager = soundManager;
+        this.gameManager = gameManager;
     }
     private void OnEnable()
     {
@@ -36,6 +40,7 @@ public class WaveWarning : MonoBehaviour
 
     private void OnNewWaveComing()
     {
+        warningText.text = $"WAVE {gameManager.CurrentWave} INCOMING";
         warningObject.SetActive(true);
         warningObject.transform.DOScale(Vector3.one, appearDuration).SetEase(Ease.InElastic).OnComplete(() =>
         {

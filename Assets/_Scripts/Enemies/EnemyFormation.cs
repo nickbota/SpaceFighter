@@ -100,10 +100,18 @@ public class EnemyFormation : MonoBehaviour
         UpdateEnemyCount();
     }
 
+    private void SpawnNewWave()
+    {
+        ready = false;
+        newWaveTimer = 0;
+        waveIncoming = true;
+        waveNumber++;
+        gameManager.UpdateWave(waveNumber);
+        OnNewWaveComing?.Invoke();
+    }
     private void SpawnFormation()
     {
-        //Increase wave number and increase shot frequency
-        waveNumber++;
+        //Increase shot frequency
         shotCooldownDecrease = waveNumber * shotAcceleration;
 
         //Reset Y position
@@ -215,12 +223,5 @@ public class EnemyFormation : MonoBehaviour
         }
 
         return new List<Transform>(bottomEnemies.Values);
-    }
-    private void SpawnNewWave()
-    {
-        ready = false;
-        newWaveTimer = 0;
-        waveIncoming = true;
-        OnNewWaveComing?.Invoke();
     }
 }
