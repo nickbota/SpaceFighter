@@ -140,7 +140,7 @@ public class EnemyFormation : MonoBehaviour
         //Check each enemy to see if they're outside of the movement bouds
         foreach (var enemy in enemies)
         {
-            if (enemy == null) continue;
+            if (enemy == null || !enemy.gameObject.activeInHierarchy) continue;
             float enemyX = enemy.position.x;
 
             //If yes, drop the formation and change the movement direction
