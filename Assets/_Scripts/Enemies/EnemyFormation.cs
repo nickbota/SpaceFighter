@@ -8,14 +8,17 @@ public class EnemyFormation : MonoBehaviour
 {
     [Header("Enemy Formation")]
     [SerializeField] private ObjectPool enemyPool;
-    [SerializeField] private int rows = 3;
-    [SerializeField] private int columns = 6;
+    [SerializeField] private int maxRows = 5;
+    [SerializeField] private int minRows = 1;
+    [SerializeField] private int maxColumns = 4;
+    [SerializeField] private int minColumns = 1;
     [SerializeField] private float spacing = 1.5f;
+    private int maxEnemies;
 
     [Header("Horizontal Movement")]
     [SerializeField] private float xLimit = 4;
     [SerializeField] private float initialMoveSpeed = 1f;
-    [SerializeField] private float accelerationPerKilledEnemy = 0.1f;
+    [SerializeField] private float accelerationPerEnemy = 0.1f;
     [SerializeField] private float accelerationPerWave = 0.15f;
 
     [Header("Vertical Movement")]
@@ -24,8 +27,10 @@ public class EnemyFormation : MonoBehaviour
 
     [Header("Shooting Parameters")]
     [SerializeField] private float shotCooldown = 3f;
+    [SerializeField] private float shotAcceleration = 0.1f;
     [SerializeField] private ObjectPool enemyBulletPool;
     private float shotTimer;
+    private float shotCooldownDecrease;
 
     [Header("Sounds")]
     [SerializeField] private AudioClip enemyShotSound;
@@ -60,6 +65,7 @@ public class EnemyFormation : MonoBehaviour
     {
         enabled = false;
         initialPosition = transform.position;
+        maxEnemies = maxRows * maxColumns;
     }
     private void Start()
     {
@@ -79,11 +85,11 @@ public class EnemyFormation : MonoBehaviour
 
         if (!ready) return;
 
-        initialMoveSpeed = 1f + (enemies.Count - activeEnemyCount) * accelerationPerKilledEnemy + (accelerationPerWave * waveNumber);
+        initialMoveSpeed = 1f + (maxEnemies - activeEnemyCount) * accelerationPerEnemy + (accelerationPerWave * waveNumber);
         MoveFormation();
 
         shotTimer += Time.deltaTime;
-        if (shotTimer >= shotCooldown)
+        if (shotTimer >= (shotCooldown - shotCooldownDecrease))
             PerformShot();
     }
 
@@ -96,10 +102,20 @@ public class EnemyFormation : MonoBehaviour
 
     private void SpawnFormation()
     {
+        //Increase wave number and increase shot frequency
         waveNumber++;
+        shotCooldownDecrease = waveNumber * shotAcceleration;
+
+        //Reset Y position
         transform.position = initialPosition;
         currentYPosition = transform.position.y;
+
+        //Clear enemies
         enemies.Clear();
+
+        //Randomize rows and columns and prepare fly in
+        int rows = UnityEngine.Random.Range(minRows, maxRows + 1);
+        int columns = UnityEngine.Random.Range(minColumns, maxColumns + 1);
         flyInsToComplete = rows * columns;
 
         for (int row = 0; row < rows; row++)
