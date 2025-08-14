@@ -111,8 +111,6 @@ public class EnemyFormation : MonoBehaviour
                 GameObject enemy = null;
                 enemy = enemyPool.GetFromPool(initPos, Quaternion.identity);
 
-                Debug.Log($"{enemy.name} spawned!");
-
                 if (!enemies.Contains(enemy.transform))
                     enemies.Add(enemy.transform);
 
