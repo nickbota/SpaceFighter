@@ -39,13 +39,13 @@ public class ButtonSound : MonoBehaviour, IPointerEnterHandler
         if (onClickSounds == null || onClickSounds.Length == 0) return;
 
         foreach (var sound in onClickSounds)
-            soundManager?.PlaySound(sound);
+            soundManager?.PlaySound(sound, true);
     }
     private void PlayHoverSounds()
     {
         if (onHoverSounds == null || onHoverSounds.Length == 0) return;
 
         foreach (var sound in onHoverSounds)
-            soundManager?.PlaySound(sound);
+            soundManager?.PlaySound(sound, true);
     }
 }

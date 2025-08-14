@@ -10,12 +10,16 @@ public class SoundManager : MonoBehaviour
         soundSource = GetComponent<AudioSource>();
     }
 
-    public void PlaySound(AudioClip sound)
+    public void PlaySound(AudioClip sound, bool randomizePitch)
     {
         if (sound == null || soundSource == null) return;
 
         //Randomize pitch to make SFX sound different
-        soundSource.pitch = Random.Range(0.8f, 1.2f);
+        if(randomizePitch)
+            soundSource.pitch = Random.Range(0.8f, 1.2f);
+        else
+            soundSource.pitch = 1;
+
         soundSource.PlayOneShot(sound);
     }
 }

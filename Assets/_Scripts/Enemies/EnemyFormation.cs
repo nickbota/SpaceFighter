@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 using Zenject;
 using DG.Tweening;
@@ -27,11 +28,11 @@ public class EnemyFormation : MonoBehaviour
     private float shotTimer;
 
     [Header("Sounds")]
-    [SerializeField] private AudioClip newWaveSound;
     [SerializeField] private AudioClip enemyShotSound;
     [SerializeField] private AudioClip enemyDeathSound;
     [SerializeField] private AudioClip flyInSound;
 
+    public Action OnNewWaveComing { get; set; }
     private Vector3 direction = Vector3.right;
     private Vector3 initialPosition;
     private List<Transform> enemies = new List<Transform>();
@@ -86,10 +87,10 @@ public class EnemyFormation : MonoBehaviour
             PerformShot();
     }
 
-    public void AddScore(int score, GameObject enemy)
+    public void AddScore(int score)
     {
         gameManager.AddScore(score);
-        soundManager.PlaySound(enemyDeathSound);
+        soundManager.PlaySound(enemyDeathSound, true);
         UpdateEnemyCount();
     }
 
@@ -116,12 +117,12 @@ public class EnemyFormation : MonoBehaviour
                     enemies.Add(enemy.transform);
 
                 //Fly-in animation
-                float duration = Random.Range(0.25f, 1);
-                float delay = row * 0.1f + Random.Range(0f, 0.1f);
+                float duration = UnityEngine.Random.Range(0.25f, 1);
+                float delay = row * 0.1f + UnityEngine.Random.Range(0f, 0.1f);
 
                 enemy.transform.DOMove(finalPos, duration)
                     .SetEase(Ease.InOutBack).SetDelay(delay)
-                    .OnStart(() => soundManager.PlaySound(flyInSound))
+                    .OnStart(() => soundManager.PlaySound(flyInSound, true))
                     .OnComplete(() =>
                     {
                         flyInsToComplete--;
@@ -149,7 +150,7 @@ public class EnemyFormation : MonoBehaviour
                 ready = false;
 
                 currentYPosition -= dropDistance;
-                transform.DOMoveY(currentYPosition, dropDuration).OnComplete(()=>
+                transform.DOMoveY(currentYPosition, dropDuration).OnComplete(() =>
                 {
                     direction *= -1;
                     transform.position += direction * 0.1f;
@@ -168,10 +169,10 @@ public class EnemyFormation : MonoBehaviour
         List<Transform> bottomEnemies = GetBottomEnemies();
         if (bottomEnemies.Count == 0) return;
 
-        Transform firePoint = bottomEnemies[Random.Range(0, bottomEnemies.Count)];
+        Transform firePoint = bottomEnemies[UnityEngine.Random.Range(0, bottomEnemies.Count)];
         enemyBulletPool.GetFromPool(firePoint.position, Quaternion.identity);
 
-        soundManager.PlaySound(enemyShotSound);
+        soundManager.PlaySound(enemyShotSound, true);
     }
     private void UpdateEnemyCount()
     {
@@ -206,6 +207,6 @@ public class EnemyFormation : MonoBehaviour
         ready = false;
         newWaveTimer = 0;
         waveIncoming = true;
-        soundManager.PlaySound(newWaveSound);
+        OnNewWaveComing?.Invoke();
     }
 }

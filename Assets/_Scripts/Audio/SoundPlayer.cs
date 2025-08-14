@@ -12,6 +12,6 @@ public class SoundPlayer : MonoBehaviour
 
     public void PlaySound(AudioClip sound)
     {
-        soundManager.PlaySound(sound);
+        soundManager.PlaySound(sound, true);
     }
 }

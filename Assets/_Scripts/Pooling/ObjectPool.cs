@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class ObjectPool : MonoBehaviour
 {
     [SerializeField] private GameObject prefab;
-    [SerializeField] private int poolSize = 20;
     private List<GameObject> pooledObjects = new List<GameObject>();
 
     private GameManager gameManager;

@@ -26,12 +26,6 @@ public class Health : MonoBehaviour
     {
         currentHealth = initialHealth;
     }
-    private void OnDisable()
-    {
-        if (scoreToAdd == 0 || enemyFormation == null) return;
-        enemyFormation.AddScore(scoreToAdd, gameObject);
-        currentHealth = initialHealth;
-    }
 
     public void ChangeHealth(int change)
     {
@@ -41,6 +35,11 @@ public class Health : MonoBehaviour
         if (change > 0) return;
 
         if (currentHealth > 0) OnHurt?.Invoke();
-        else                   OnDeath?.Invoke();
+        else
+        {
+            OnDeath?.Invoke();
+            if (scoreToAdd == 0 || enemyFormation == null) return;
+            enemyFormation.AddScore(scoreToAdd);
+        } 
     }
 }
