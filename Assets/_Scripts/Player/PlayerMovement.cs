@@ -1,3 +1,4 @@
+using Terresquall;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("X Limit")]
     [SerializeField] private float boundsX = -5f;
+
+    [Header("Joystick")]
+    [SerializeField] private VirtualJoystick joystick;
+
     private Vector3 lastInputPosition;
     private float moveInput;
 
@@ -19,14 +24,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.GetMouseButtonDown(0))
-            lastInputPosition = Input.mousePosition;
+        //if (Input.GetMouseButtonDown(0))
+        //    lastInputPosition = Input.mousePosition;
 
         if (Input.GetMouseButton(0))
         {
-            Vector3 delta = Input.mousePosition - lastInputPosition;
-            MovePlayer(delta.x * movementSpeed * Time.deltaTime);
-            lastInputPosition = Input.mousePosition;
+            //Vector3 delta = Input.mousePosition - lastInputPosition;
+            float delta = joystick.GetAxisRaw("Horizontal");
+            MovePlayer(delta * movementSpeed * Time.deltaTime);
+            //lastInputPosition = Input.mousePosition;
         }
     }
     private void MovePlayer(float deltaX)
