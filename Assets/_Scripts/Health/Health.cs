@@ -38,6 +38,8 @@ public class Health : MonoBehaviour
 
         if (change > 0) return;
 
+        if (enemyFormation != null) enemyFormation.DamageEnemy();
+
         if (currentHealth > 0) OnHurt?.Invoke();
         else                   Die();
     }

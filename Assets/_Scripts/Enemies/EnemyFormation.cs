@@ -99,12 +99,12 @@ public class EnemyFormation : MonoBehaviour
     public void AddScore(int score, Vector3 position)
     {
         gameManager.AddScore(score);
-        soundManager.PlaySound(enemyDeathSound, true);
         UpdateEnemyCount();
     }
     public void DamageEnemy()
     {
         OnEnemyDamaged?.Invoke();
+        soundManager.PlaySound(enemyDeathSound, true);
     }
 
     private void SpawnNewWave()

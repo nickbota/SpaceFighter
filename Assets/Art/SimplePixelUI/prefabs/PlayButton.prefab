@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onClickSounds:
-  - {fileID: 8300000, guid: 223581aba0708d64e935ce764caa3a75, type: 3}
+  - {fileID: 8300000, guid: c54b9582ba1ba8b4da65aaebcf9325b8, type: 3}
   onHoverSounds: []
 --- !u!1 &6351433798492352235
 GameObject:

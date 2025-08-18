@@ -1,28 +1,36 @@
 using UnityEngine;
+using Zenject;
 
 public class BackgroundParallax : MonoBehaviour
 {
     [SerializeField] private Transform background1;
     [SerializeField] private Transform background2;
     [SerializeField] private float scrollSpeed = 2f;
-
     private float spriteHeight;
+    private bool moving;
 
+    private GameManager gameManager;
+    [Inject]
+    private void Init(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+    }
+    private void OnEnable()
+    {
+        gameManager.OnGameStateChanged += OnGameStateChanged;
+    }
+    private void OnDisable()
+    {
+        gameManager.OnGameStateChanged -= OnGameStateChanged;
+    }
     private void Start()
     {
-        if (background1 == null || background2 == null)
-        {
-            Debug.LogError("Assign both background sprites in the inspector!");
-            enabled = false;
-            return;
-        }
-
-        // Assuming both sprites are the same height
         spriteHeight = background1.GetComponent<SpriteRenderer>().bounds.size.y;
     }
-
     private void Update()
     {
+        if (!moving) return;
+
         Vector3 move = Vector3.down * scrollSpeed * Time.deltaTime;
 
         background1.position += move;
@@ -34,5 +42,10 @@ public class BackgroundParallax : MonoBehaviour
 
         if (background2.position.y <= -spriteHeight)
             background2.position += Vector3.up * spriteHeight * 2f;
+    }
+
+    public void OnGameStateChanged(GameManager.GameState gameState)
+    {
+        moving = (gameState == GameManager.GameState.Game);
     }
 }
