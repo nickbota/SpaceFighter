@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
 {
     [Header("Health Parameters")]
     [SerializeField] private int initialHealth;
+    public int InitialHealth => initialHealth;
     private int currentHealth;
     public int CurrentHealth => currentHealth;
     public Action<int> OnHealthChanged { get; set; }

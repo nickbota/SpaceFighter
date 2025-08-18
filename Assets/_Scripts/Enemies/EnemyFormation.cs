@@ -14,7 +14,7 @@ public class EnemyFormation : MonoBehaviour
     [SerializeField] private int maxColumns = 4;
     [SerializeField] private int minColumns = 1;
     [SerializeField] private float spacing = 1.5f;
-    [SerializeField] private UnityEvent OnEnemyDeath;
+    [SerializeField] private UnityEvent OnEnemyDamaged;
     private int maxEnemies;
 
     [Header("Horizontal Movement")]
@@ -38,9 +38,6 @@ public class EnemyFormation : MonoBehaviour
     [SerializeField] private AudioClip enemyShotSound;
     [SerializeField] private AudioClip enemyDeathSound;
     [SerializeField] private AudioClip flyInSound;
-
-    [Header("UI References")]
-    [SerializeField] private ScoreAddition scoreAddition;
 
     public Action OnNewWaveComing { get; set; }
     private Vector3 direction = Vector3.right;
@@ -104,8 +101,10 @@ public class EnemyFormation : MonoBehaviour
         gameManager.AddScore(score);
         soundManager.PlaySound(enemyDeathSound, true);
         UpdateEnemyCount();
-        OnEnemyDeath?.Invoke();
-        scoreAddition.ShowScoreAddition(position, $"+{score}");
+    }
+    public void DamageEnemy()
+    {
+        OnEnemyDamaged?.Invoke();
     }
 
     private void SpawnNewWave()

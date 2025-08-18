@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("X Limit")]
     [SerializeField] private float boundsX = -5f;
 
+    [Header("Thruster Audio")]
+    [SerializeField] private AudioSource thrusterAudioSource;
+
     private Vector2 lastInputPosition;
     private bool isPointerDown;
     private float moveInput;
@@ -52,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnPointerDown(InputValue value)
     {
         isPointerDown = true;
+        thrusterAudioSource.Play();
 
         lastInputPosition = Touchscreen.current != null
                 ? Touchscreen.current.position.ReadValue()
@@ -60,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnPointerUp(InputValue value)
     {
         isPointerDown = false;
+        thrusterAudioSource.Stop();
     }
     private void OnMove(InputValue inputValue)
     {
