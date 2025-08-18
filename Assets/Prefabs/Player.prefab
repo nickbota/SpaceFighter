@@ -660,7 +660,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 5
   boundsX: 4.5
-  joystick: {fileID: 0}
 --- !u!114 &4410750665910196478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,7 +674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPool: {fileID: 0}
   firePoint: {fileID: 3373383917832150905}
-  shootCooldown: 0.5
+  shootCooldown: 1
   OnShoot:
     m_PersistentCalls:
       m_Calls:

@@ -9,12 +9,18 @@ public class PlayerShooting : MonoBehaviour
     [Header("Shot Parameters")]
     [SerializeField] private Transform firePoint;
     [SerializeField] private float shootCooldown = 0.5f;
+    [SerializeField] private EnemyFormation enemyFormation;
     [SerializeField] private UnityEvent OnShoot;
     private float lastShootTime = 0f;
+    private float shotTimer = 1000;
 
-    public void Shoot()
+    private void Update()
     {
-        TryShoot();
+        if (!enemyFormation.Ready) return;
+
+        shotTimer += Time.deltaTime;
+        if (shotTimer >= shootCooldown)
+            TryShoot();
     }
 
     private void TryShoot()
@@ -33,7 +39,7 @@ public class PlayerShooting : MonoBehaviour
     #region Input
     private void OnAttack()
     {
-        Shoot();
+        TryShoot();
     }
     #endregion
 }

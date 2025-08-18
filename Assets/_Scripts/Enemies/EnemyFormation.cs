@@ -44,6 +44,7 @@ public class EnemyFormation : MonoBehaviour
     private float currentYPosition;
     private int flyInsToComplete;
     private bool ready;
+    public bool Ready => ready;
     private int activeEnemyCount = 999;
 
     //Wave incoming parameters
