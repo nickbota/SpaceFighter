@@ -1,16 +1,19 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Speed")]
-    [SerializeField] private float movementSpeed = 0.01f;
+    [SerializeField] private float touchMovementSpeed = 2.5f;
+    [SerializeField] private float keyboardMovementSpeed = 5f;
 
     [Header("X Limit")]
     [SerializeField] private float boundsX = -5f;
 
-    private Vector3 lastInputPosition;
+    private Vector2 lastInputPosition;
+    private bool isPointerDown;
     private float moveInput;
 
     private void Update()
@@ -21,14 +24,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.GetMouseButtonDown(0))
-            lastInputPosition = Input.mousePosition;
-
-        if (Input.GetMouseButton(0))
+        if (isPointerDown)
         {
-            Vector3 delta = Input.mousePosition - lastInputPosition;
-            MovePlayer(delta.x * movementSpeed * Time.deltaTime);
-            lastInputPosition = Input.mousePosition;
+            Vector2 currentPos = Touchscreen.current != null
+                ? Touchscreen.current.position.ReadValue()
+                : Mouse.current.position.ReadValue();
+
+            Vector2 delta = currentPos - lastInputPosition;
+            MovePlayer(delta.x * touchMovementSpeed * Time.deltaTime);
+            lastInputPosition = currentPos;
         }
     }
     private void MovePlayer(float deltaX)
@@ -41,10 +45,23 @@ public class PlayerMovement : MonoBehaviour
     private void HandleKeyboardMovement()
     {
         if (Mathf.Abs(moveInput) > 0.01f)
-            MovePlayer(moveInput * movementSpeed * Time.deltaTime);
+            MovePlayer(moveInput * keyboardMovementSpeed * Time.deltaTime);
     }
 
     #region Input
+    private void OnPointerDown(InputValue value)
+    {
+        isPointerDown = true;
+
+        lastInputPosition = Touchscreen.current != null
+                ? Touchscreen.current.position.ReadValue()
+                : Mouse.current.position.ReadValue();
+    }
+    private void OnPointerUp(InputValue value)
+    {
+        Debug.Log("Pointer up");
+        isPointerDown = false;
+    }
     private void OnMove(InputValue inputValue)
     {
         moveInput = inputValue.Get<Vector2>().x;

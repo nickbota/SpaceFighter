@@ -658,7 +658,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb313632bdd329540871b601a4a8ca08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  touchMovementSpeed: 2.5
+  keyboardMovementSpeed: 5
   boundsX: 4.5
 --- !u!114 &4410750665910196478
 MonoBehaviour:
@@ -675,6 +676,7 @@ MonoBehaviour:
   bulletPool: {fileID: 0}
   firePoint: {fileID: 3373383917832150905}
   shootCooldown: 1
+  enemyFormation: {fileID: 0}
   OnShoot:
     m_PersistentCalls:
       m_Calls:
