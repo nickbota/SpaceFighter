@@ -11,11 +11,13 @@ public class Health : MonoBehaviour
     public Action<int> OnHealthChanged { get; set; }
 
     [Header("Events")]
+    [SerializeField] private UnityEvent OnSpawn;
     [SerializeField] private UnityEvent OnHurt;
     [SerializeField] private UnityEvent OnDeath;
 
     [Header("Score")]
     [SerializeField] private int scoreToAdd;
+
     private EnemyFormation enemyFormation;
 
     private void Awake()
@@ -25,6 +27,7 @@ public class Health : MonoBehaviour
     private void OnEnable()
     {
         currentHealth = initialHealth;
+        OnSpawn?.Invoke();
     }
 
     public void ChangeHealth(int change)
@@ -35,11 +38,11 @@ public class Health : MonoBehaviour
         if (change > 0) return;
 
         if (currentHealth > 0) OnHurt?.Invoke();
-        else
-        {
-            OnDeath?.Invoke();
-            if (scoreToAdd == 0 || enemyFormation == null) return;
-            enemyFormation.AddScore(scoreToAdd);
-        } 
+        else                   OnDeath?.Invoke();
+    }
+    public void AddScore()
+    {
+        if (scoreToAdd == 0 || enemyFormation == null) return;
+        enemyFormation.AddScore(scoreToAdd, transform.position);
     }
 }

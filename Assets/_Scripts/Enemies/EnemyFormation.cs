@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Zenject;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class EnemyFormation : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class EnemyFormation : MonoBehaviour
     [SerializeField] private int maxColumns = 4;
     [SerializeField] private int minColumns = 1;
     [SerializeField] private float spacing = 1.5f;
+    [SerializeField] private UnityEvent OnEnemyDeath;
     private int maxEnemies;
 
     [Header("Horizontal Movement")]
@@ -36,6 +38,9 @@ public class EnemyFormation : MonoBehaviour
     [SerializeField] private AudioClip enemyShotSound;
     [SerializeField] private AudioClip enemyDeathSound;
     [SerializeField] private AudioClip flyInSound;
+
+    [Header("UI References")]
+    [SerializeField] private ScoreAddition scoreAddition;
 
     public Action OnNewWaveComing { get; set; }
     private Vector3 direction = Vector3.right;
@@ -94,11 +99,13 @@ public class EnemyFormation : MonoBehaviour
             PerformShot();
     }
 
-    public void AddScore(int score)
+    public void AddScore(int score, Vector3 position)
     {
         gameManager.AddScore(score);
         soundManager.PlaySound(enemyDeathSound, true);
         UpdateEnemyCount();
+        OnEnemyDeath?.Invoke();
+        scoreAddition.ShowScoreAddition(position, $"+{score}");
     }
 
     private void SpawnNewWave()
@@ -126,6 +133,7 @@ public class EnemyFormation : MonoBehaviour
         int rows = UnityEngine.Random.Range(minRows, maxRows + 1);
         int columns = UnityEngine.Random.Range(minColumns, maxColumns + 1);
         flyInsToComplete = rows * columns;
+        activeEnemyCount = flyInsToComplete;
 
         for (int row = 0; row < rows; row++)
         {
@@ -154,8 +162,6 @@ public class EnemyFormation : MonoBehaviour
                     });
             }
         }
-
-        UpdateEnemyCount();
     }
     private void MoveFormation()
     {
@@ -199,13 +205,7 @@ public class EnemyFormation : MonoBehaviour
     }
     private void UpdateEnemyCount()
     {
-        int count = 0;
-        foreach (var enemy in enemies)
-        {
-            if (enemy.gameObject.activeInHierarchy)
-                count++;
-        }
-        activeEnemyCount = count;
+        activeEnemyCount--;
 
         if (activeEnemyCount == 0 && ready)
             SpawnNewWave();

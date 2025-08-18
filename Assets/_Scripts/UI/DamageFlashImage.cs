@@ -8,6 +8,9 @@ public class DamageFlashImage : MonoBehaviour
     [SerializeField] private float finalAlpha = 0.4f;
     [SerializeField] private float duration = 0.25f;
     [SerializeField] private float offDelay = 0.1f;
+    [SerializeField] private Color transparent = new Color(1, 1, 1, 0);
+    [SerializeField] private Color damageColor = new Color(1, 0, 0, 0.4f);
+    [SerializeField] private Color enemyKillColor = new Color(1, 0, 0, 0.4f);
     private Image img;
 
     private void Awake()
@@ -17,9 +20,16 @@ public class DamageFlashImage : MonoBehaviour
 
     public void ShowDamageFlash()
     {
-        img.DOFade(finalAlpha, duration).OnComplete(() =>
+        img.DOColor(damageColor, duration).SetUpdate(true).OnComplete(() =>
         {
-            img.DOFade(0, duration / 2).SetDelay(offDelay);
+            img.DOColor(transparent, duration / 2).SetDelay(offDelay);
+        });
+    }
+    public void ShowEnemyKilledFlash()
+    {
+        img.DOColor(enemyKillColor, duration / 2).SetUpdate(true).OnComplete(() =>
+        {
+            img.DOColor(transparent, duration / 4).SetDelay(offDelay);
         });
     }
 }

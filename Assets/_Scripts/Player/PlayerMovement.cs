@@ -59,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnPointerUp(InputValue value)
     {
-        Debug.Log("Pointer up");
         isPointerDown = false;
     }
     private void OnMove(InputValue inputValue)

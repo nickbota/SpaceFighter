@@ -1,17 +1,15 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class RandomEnemySprite : MonoBehaviour
 {
     [SerializeField] private Sprite[] enemySprites;
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
-    private void Awake()
+    private void OnEnable()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
         SetRandomSprite();
     }
-    private void SetRandomSprite()
+    public void SetRandomSprite()
     {
         spriteRenderer.sprite = enemySprites[Random.Range(0, enemySprites.Length)];
     }
