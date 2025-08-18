@@ -38,11 +38,15 @@ public class Health : MonoBehaviour
         if (change > 0) return;
 
         if (currentHealth > 0) OnHurt?.Invoke();
-        else                   OnDeath?.Invoke();
+        else                   Die();
     }
     public void AddScore()
     {
         if (scoreToAdd == 0 || enemyFormation == null) return;
         enemyFormation.AddScore(scoreToAdd, transform.position);
+    }
+    public void Die()
+    {
+        OnDeath?.Invoke();
     }
 }

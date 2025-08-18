@@ -349,8 +349,10 @@ GameObject:
   - component: {fileID: 3935937817420105098}
   - component: {fileID: 731737796507144165}
   - component: {fileID: 6565909000216508397}
+  - component: {fileID: 2266063057932124573}
   - component: {fileID: 5677815497021214334}
   - component: {fileID: 1947846797748848751}
+  - component: {fileID: 6942958736990981269}
   - component: {fileID: 6971445463468208626}
   - component: {fileID: 2445506100785744933}
   - component: {fileID: 4410750665910196478}
@@ -530,6 +532,33 @@ PolygonCollider2D:
       - {x: 0.25, y: -0.84999996}
       - {x: 0.35999998, y: -0.88}
   m_UseDelaunayMesh: 0
+--- !u!50 &2266063057932124573
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252074021124588744}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!114 &5677815497021214334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,6 +583,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59054f198769de0448fa55e8fa56c38c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6942958736990981269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252074021124588744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231b709d2a3b6da45a0eeb697e9208af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageOnContactLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  playerHealth: {fileID: 6971445463468208626}
+  damageOnContact: 1
 --- !u!114 &6971445463468208626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,6 +613,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialHealth: 3
+  OnSpawn:
+    m_PersistentCalls:
+      m_Calls: []
   OnHurt:
     m_PersistentCalls:
       m_Calls:

@@ -5602,6 +5602,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1941186299}
     - target: {fileID: 4410750665910196478, guid: f7b60f90794c5e34a84c38ae4002be4a, type: 3}
+      propertyPath: shootCooldown
+      value: 100000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410750665910196478, guid: f7b60f90794c5e34a84c38ae4002be4a, type: 3}
       propertyPath: enemyFormation
       value: 
       objectReference: {fileID: 1638346369}
