@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fdb46391e4500b4b9aabfeb8ca2e683, type: 3}
+  m_Name: Difficulty_5
+  m_EditorClassIdentifier: 
+  enemyDistribution:
+  - Enemy: {fileID: 11400000, guid: 925be293560845148b55a7e1a509b12f, type: 2}
+    Percentage: 5
+  - Enemy: {fileID: 11400000, guid: c14b1e19708ce5b4496cefa823059119, type: 2}
+    Percentage: 5
+  - Enemy: {fileID: 11400000, guid: fd7fe14ca2e6ad4448d7a620bd0b7d3c, type: 2}
+    Percentage: 10
+  - Enemy: {fileID: 11400000, guid: 74113efe020fee84c8a125bc0f122808, type: 2}
+    Percentage: 10
+  - Enemy: {fileID: 11400000, guid: 3645cbdad1d10ca4f8577378e4930438, type: 2}
+    Percentage: 15
+  - Enemy: {fileID: 11400000, guid: 103ebedd6b32abe409ba9d050f117993, type: 2}
+    Percentage: 20
+  - Enemy: {fileID: 11400000, guid: d26b236700667464ba24ec9bed0a743a, type: 2}
+    Percentage: 35

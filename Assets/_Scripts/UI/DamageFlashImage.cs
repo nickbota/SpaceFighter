@@ -5,7 +5,6 @@ using DG.Tweening;
 [RequireComponent(typeof(Image))]
 public class DamageFlashImage : MonoBehaviour
 {
-    [SerializeField] private float finalAlpha = 0.4f;
     [SerializeField] private float duration = 0.25f;
     [SerializeField] private float offDelay = 0.1f;
     [SerializeField] private Color transparent = new Color(1, 1, 1, 0);

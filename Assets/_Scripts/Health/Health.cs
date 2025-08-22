@@ -31,6 +31,12 @@ public class Health : MonoBehaviour
         OnSpawn?.Invoke();
     }
 
+    public void SetEnemy(int health, int score)
+    { 
+        initialHealth = health;
+        scoreToAdd = score;
+        currentHealth = initialHealth;
+    }
     public void ChangeHealth(int change)
     {
         currentHealth = Mathf.Clamp(currentHealth + change, 0, initialHealth);

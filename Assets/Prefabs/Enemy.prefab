@@ -429,16 +429,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369f31b3a5170c0459c81c2b5d38f6e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySprites:
-  - {fileID: 21300000, guid: fb2edaadc51315c49893cdd77a92fc0c, type: 3}
-  - {fileID: 21300000, guid: 3637072e14b1d1b41aef97b27a2dd6c1, type: 3}
-  - {fileID: 21300000, guid: ac6b5187c4c1e3e4b98fd66b7080ea39, type: 3}
-  - {fileID: 21300000, guid: 8369f2f245dcc6a448ea54c4818238a8, type: 3}
-  - {fileID: 21300000, guid: 5ce4a97769ad0df45a790cf9ec5fc0ad, type: 3}
-  - {fileID: 21300000, guid: 1bc3f776bc8b5014cb321abf356341ad, type: 3}
-  - {fileID: 21300000, guid: 26447bdd5ea530345b519d76d8f62395, type: 3}
-  - {fileID: 21300000, guid: e8a5d05785ce3674fa0e53cee072a617, type: 3}
   spriteRenderer: {fileID: 8014957777606854620}
+  enemyHealth: {fileID: 5975339160368966077}
 --- !u!114 &5975339160368966077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,7 +449,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8249041426181360035}
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+        m_MethodName: 
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -499,7 +491,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8249041426181360035}
         m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+        m_MethodName: 
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

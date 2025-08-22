@@ -1869,7 +1869,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &745653051
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4320,7 +4320,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6faa853e1c42c8345b2d887f21c581dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficultyLevels:
+  - {fileID: 11400000, guid: 80b5650cb28fa5748bef6ab9ede796f9, type: 2}
+  - {fileID: 11400000, guid: cca70eaeb3bbd2f4cbab4286196caef2, type: 2}
+  - {fileID: 11400000, guid: 2154a23b85867824898fc16c1c1ecf98, type: 2}
+  - {fileID: 11400000, guid: f3c40a473aad7db4981c8fbb32b5c95c, type: 2}
+  - {fileID: 11400000, guid: 8b195cb9b65ff7d4589e0d6b3a87f443, type: 2}
+  - {fileID: 11400000, guid: 023ca1e92147eec47aafbdd2c35f3fb7, type: 2}
+  - {fileID: 11400000, guid: 08c7c6ff7e106e8418d51919deec3513, type: 2}
+  - {fileID: 11400000, guid: c9f03b25964c318419c99d2c18a2be14, type: 2}
   enemyPool: {fileID: 1638346371}
+  enemyScriptableObject: {fileID: 11400000, guid: 925be293560845148b55a7e1a509b12f, type: 2}
   maxRows: 6
   minRows: 2
   maxColumns: 4

@@ -7,6 +7,9 @@ using UnityEngine.Events;
 
 public class EnemyFormation : MonoBehaviour
 {
+    [Header("Difficulty Levels")]
+    [SerializeField] private DifficultyLevelScriptableObject[] difficultyLevels;
+
     [Header("Enemy Formation")]
     [SerializeField] private ObjectPool enemyPool;
     [SerializeField] private int maxRows = 5;
@@ -96,6 +99,7 @@ public class EnemyFormation : MonoBehaviour
             PerformShot();
     }
 
+    //Public methods
     public void AddScore(int score, Vector3 position)
     {
         gameManager.AddScore(score);
@@ -134,14 +138,33 @@ public class EnemyFormation : MonoBehaviour
         flyInsToComplete = rows * columns;
         activeEnemyCount = flyInsToComplete;
 
+        //Get current difficulty level
+        DifficultyLevelScriptableObject difficultyLevel = difficultyLevels[GetDifficultyLevel()];
+
+        //Generate enemy distribution list
+        List<int> enemyDistribution = new List<int>();
+        foreach (var item in difficultyLevel.EnemyDistribution)
+            enemyDistribution.Add(Mathf.RoundToInt(activeEnemyCount * ((float)item.Percentage / (float)100)));
+
         for (int row = 0; row < rows; row++)
         {
             for (int col = 0; col < columns; col++)
             {
+                //Select random enemy index from distribution list (skip if 0) and get scriptable object
+                int randomIndex = UnityEngine.Random.Range(0, enemyDistribution.Count);
+                while (enemyDistribution[randomIndex] == 0)
+                    randomIndex = UnityEngine.Random.Range(0, enemyDistribution.Count);
+
+                EnemyScriptableObject enemyScriptableObject = difficultyLevel.EnemyDistribution[randomIndex].Enemy;
+                enemyDistribution[randomIndex]--;
+
                 Vector3 finalPos = transform.position + new Vector3(col * spacing, -row * spacing, 0);
                 Vector3 initPos = finalPos + new Vector3(0, 15, 0);
                 GameObject enemy = null;
                 enemy = enemyPool.GetFromPool(initPos, Quaternion.identity);
+
+                if (enemy.TryGetComponent<EnemyConstructor>(out var enemyConstructor))
+                    enemyConstructor.ConstructEnemy(enemyScriptableObject);
 
                 if (!enemies.Contains(enemy.transform))
                     enemies.Add(enemy.transform);
@@ -223,5 +246,21 @@ public class EnemyFormation : MonoBehaviour
         }
 
         return new List<Transform>(bottomEnemies.Values);
+    }
+
+    //Difficulty
+    private int GetDifficultyLevel()
+    {
+        return waveNumber switch
+        {
+            <= 5 => 0,
+            >= 6 and <= 10 => 1,
+            >= 11 and <= 15 => 2,
+            >= 16 and <= 20 => 3,
+            >= 21 and <= 25 => 4,
+            >= 26 and <= 30 => 5,
+            >= 31 and <= 35 => 6,
+            >= 36 => 7
+        };
     }
 }
