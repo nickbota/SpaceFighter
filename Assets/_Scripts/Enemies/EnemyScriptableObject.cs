@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "SpaceFighter/Enemy Variant")]
+[CreateAssetMenu(menuName = "Space Fighter/Enemy Variant")]
 public class EnemyScriptableObject : ScriptableObject
 {
     [Header("Sprite")]

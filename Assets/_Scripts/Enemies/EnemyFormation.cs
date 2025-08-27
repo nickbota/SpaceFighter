@@ -152,8 +152,26 @@ public class EnemyFormation : MonoBehaviour
             {
                 //Select random enemy index from distribution list (skip if 0) and get scriptable object
                 int randomIndex = UnityEngine.Random.Range(0, enemyDistribution.Count);
-                while (enemyDistribution[randomIndex] == 0)
-                    randomIndex = UnityEngine.Random.Range(0, enemyDistribution.Count);
+
+                bool distributionOver = false;      
+                foreach (var count in enemyDistribution)
+                {
+                    if (count > 0)
+                    {
+                        distributionOver = false;
+                        break;
+                    }
+                    distributionOver = true;
+                }
+
+                if (!distributionOver)
+                {
+                    //Generate new random index if we no longer need that enemy type
+                    while (enemyDistribution[randomIndex] == 0)
+                        randomIndex = UnityEngine.Random.Range(0, enemyDistribution.Count);
+                }
+                else
+                    randomIndex = 0; //If distribution is over, just use the first enemy type
 
                 EnemyScriptableObject enemyScriptableObject = difficultyLevel.EnemyDistribution[randomIndex].Enemy;
                 enemyDistribution[randomIndex]--;
@@ -253,8 +271,8 @@ public class EnemyFormation : MonoBehaviour
     {
         return waveNumber switch
         {
-            <= 5 => 0,
-            >= 6 and <= 10 => 1,
+            < 5 => 0,
+            >= 5 and <= 10 => 1,
             >= 11 and <= 15 => 2,
             >= 16 and <= 20 => 3,
             >= 21 and <= 25 => 4,

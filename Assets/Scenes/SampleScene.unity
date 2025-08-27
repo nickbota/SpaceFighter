@@ -4286,6 +4286,7 @@ GameObject:
   - component: {fileID: 1638346370}
   - component: {fileID: 1638346371}
   - component: {fileID: 1638346369}
+  - component: {fileID: 1638346372}
   m_Layer: 0
   m_Name: EnemyFormation
   m_TagString: Untagged
@@ -4330,7 +4331,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 08c7c6ff7e106e8418d51919deec3513, type: 2}
   - {fileID: 11400000, guid: c9f03b25964c318419c99d2c18a2be14, type: 2}
   enemyPool: {fileID: 1638346371}
-  enemyScriptableObject: {fileID: 11400000, guid: 925be293560845148b55a7e1a509b12f, type: 2}
   maxRows: 6
   minRows: 2
   maxColumns: 4
@@ -4366,6 +4366,18 @@ MonoBehaviour:
       - m_Target: {fileID: 274270908}
         m_TargetAssemblyTypeName: TimeManager, Assembly-CSharp
         m_MethodName: StopTime
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0.25
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1638346372}
+        m_TargetAssemblyTypeName: DropSpawner, Assembly-CSharp
+        m_MethodName: TryDrop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4412,6 +4424,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 9041745240356374588, guid: dcef5f87146149e489c6db4a4bf427b6, type: 3}
+--- !u!114 &1638346372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638346367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 267c6905628fce8408d635a873e9a610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootTable: {fileID: 11400000, guid: 4ff36e8d7575a5f42b49074f2a71317f, type: 2}
+  dropChance: 0.1
+  rolls: 1
 --- !u!1 &1669314890
 GameObject:
   m_ObjectHideFlags: 0
@@ -5138,7 +5165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0afef9f4fc08224cba53d6d2a97d427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  finalAlpha: 0.4
   duration: 0.25
   offDelay: 0.1
   transparent: {r: 1, g: 1, b: 1, a: 0}

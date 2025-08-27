@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "SpaceFighter/Difficulty Setting")]
+[CreateAssetMenu(menuName = "Space Fighter/Difficulty Setting")]
 public class DifficultyLevelScriptableObject : ScriptableObject
 {
     [Header("Enemy Distribution")]

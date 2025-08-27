@@ -693,11 +693,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231b709d2a3b6da45a0eeb697e9208af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: {fileID: 6971445463468208626}
+  playerShooting: {fileID: 4410750665910196478}
   damageOnContactLayer:
     serializedVersion: 2
     m_Bits: 128
-  playerHealth: {fileID: 6971445463468208626}
   damageOnContact: 1
+  itemLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &6971445463468208626
 MonoBehaviour:
   m_ObjectHideFlags: 0
