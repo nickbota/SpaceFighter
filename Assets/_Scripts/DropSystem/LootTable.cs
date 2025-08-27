@@ -8,29 +8,25 @@ public class LootTable : ScriptableObject
     [Serializable]
     public class Entry
     {
-        [Tooltip("Prefab to spawn (heart, powerup, shield, etc.).")]
         public GameObject prefab;
 
         [Min(0), Tooltip("Relative weight (0 = never; higher = more likely).")]
         public int weight = 1;
     }
 
-    [Tooltip("Weighted list of possible drops.")]
-    public List<Entry> entries = new List<Entry>();
+    [SerializeField] private List<Entry> entries = new List<Entry>();
 
-    /// <summary>Returns true if at least one entry can be rolled.</summary>
     public bool HasValidEntries()
     {
         foreach (var e in entries)
-        {
             if (e != null && e.prefab != null && e.weight > 0) return true;
-        }
+
         return false;
     }
 
-    /// <summary>Pick one entry by weight. Returns null if none valid.</summary>
     public GameObject PickWeighted(System.Random rng = null)
     {
+        //Calculate total weight of all items
         int total = 0;
         for (int i = 0; i < entries.Count; i++)
         {
@@ -40,17 +36,18 @@ public class LootTable : ScriptableObject
         }
         if (total <= 0) return null;
 
+        //Generate a random number and check which item needs to be spawned
         if (rng == null) rng = new System.Random();
         int roll = rng.Next(0, total);
-        int cum = 0;
+        int cumulativeWeight = 0;
 
         for (int i = 0; i < entries.Count; i++)
         {
             var e = entries[i];
             if (e == null || e.prefab == null || e.weight <= 0) continue;
 
-            cum += e.weight;
-            if (roll < cum)
+            cumulativeWeight += e.weight;
+            if (roll < cumulativeWeight)
                 return e.prefab;
         }
         return null;

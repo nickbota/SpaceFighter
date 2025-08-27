@@ -4437,8 +4437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootTable: {fileID: 11400000, guid: 4ff36e8d7575a5f42b49074f2a71317f, type: 2}
-  dropChance: 0.1
-  rolls: 1
+  dropChance: 1
 --- !u!1 &1669314890
 GameObject:
   m_ObjectHideFlags: 0
